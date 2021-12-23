@@ -61,7 +61,38 @@ public class DbRepository {
     }
 
     public void addTransaction(Transaction transaction){
+        try{
+            PreparedStatement prepInsTransaction = conn.prepareStatement(
+                    "INSERT INTO transactions VALUES (?, ?, ?);");
+            prepInsTransaction.setNull(1, 0);
+            prepInsTransaction.setString(2, transaction.code);
+            prepInsTransaction.setInt(3, transaction.price);
+            prepInsTransaction.addBatch();
+            prepInsTransaction.executeBatch();
 
+            PreparedStatement prepGetTransactionId = conn.prepareStatement(
+                    "SELECT id FROM transactions WHERE code = ?;");
+            prepGetTransactionId.setString(1, transaction.code);
+
+            var result = prepGetTransactionId.executeQuery();
+            result.next();
+            var transactionId = result.getInt("id");
+
+
+            for(var item : transaction.itemsBought){
+                PreparedStatement prepInsertTransactionItem = conn.prepareStatement(
+                        "INSERT INTO transactionitems VALUES (?, ?, ?);");
+                prepInsertTransactionItem.setNull(1, 0);
+                prepInsertTransactionItem.setInt(2, transactionId);
+                prepInsertTransactionItem.setInt(3, item.id);
+                prepInsertTransactionItem.addBatch();
+                prepInsertTransactionItem.executeBatch();
+            }
+
+        }
+        catch (SQLException e){
+            System.err.println(e);
+        }
     }
 
     public ArrayList<Transaction> getTransactions(){
@@ -91,13 +122,13 @@ public class DbRepository {
         var items = new ArrayList<Item>();
         try {
             PreparedStatement prep = conn.prepareStatement(
-                    "SELECT items.id, items.code, items.name, items.price\n" +
-                        "FROM items\n" +
+                    "SELECT items.id, items.code, items.name, items.price FROM items\n" +
                         "JOIN transactionitems ON items.id = transactionitems.itemid\n" +
-                        "JOIN transactions ON transactionitems.transactionid = ?;");
+                        "JOIN transactions ON  transactions.id = transactionitems.transactionid\n" +
+                        "WHERE transactions.id = ?;");
             prep.setInt(1, transactionId);
-            prep.addBatch();
-            //prep.executeBatch();
+
+
             var rs = prep.executeQuery();
             while(rs.next()) {
                 int id = rs.getInt("id");
@@ -118,8 +149,21 @@ public class DbRepository {
 
     public static void main(String[] args){
         var repo = new DbRepository("jdbc:sqlite:shop.db");
+        //var transactions = repo.getTransactions();
+//        var items = new ArrayList<Item>();
+//        var item1 = new Item("MSZ-010", "ZZ Gundam", 105);
+//        item1.id = 6;
+//        var item2 = new Item("MSN-00100", "Hyaku Shiki", 205);
+//        item2.id = 7;
+//
+//        items.add(item1);
+//        items.add(item2);
+//
+//        var transaction = new Transaction("trans",0, items);
+//        transaction.recalculatePrice();
+//
+//        repo.addTransaction(transaction);
 
-        var transactions = repo.getTransactions();
     }
 
 

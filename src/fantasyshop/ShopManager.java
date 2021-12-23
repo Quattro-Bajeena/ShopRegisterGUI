@@ -1,5 +1,7 @@
 package fantasyshop;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 
 public class ShopManager {
@@ -39,6 +41,16 @@ public class ShopManager {
             totalPrice += item.price;
         }
         return totalPrice;
+    }
+
+    public ArrayList<Transaction> getTransactions(){
+        return repository.getTransactions();
+    }
+
+    public void completeTransaction(){
+        var timestamp = new Timestamp(System.currentTimeMillis());
+        var transaction = new Transaction(Long.toString(Instant.now().toEpochMilli()) , 0,  cart);
+        transaction.recalculatePrice();
     }
 
 }

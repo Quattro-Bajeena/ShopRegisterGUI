@@ -50,6 +50,14 @@ public class FantasyShopApp {
 
             }
         });
+        btnTransactions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                var transactions = manager.getTransactions();
+                var transactionsPanel = new TransactionsForm(transactions);
+                transactionsPanel.setVisible(true);
+            }
+        });
     }
 
     private void refreshCart(){
