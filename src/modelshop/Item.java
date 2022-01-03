@@ -1,4 +1,4 @@
-package fantasyshop;
+package modelshop;
 
 public class Item {
     public String code;

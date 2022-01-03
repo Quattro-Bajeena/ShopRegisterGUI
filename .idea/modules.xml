@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FantasyShopGUI.iml" filepath="$PROJECT_DIR$/FantasyShopGUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShopGUI.iml" filepath="$PROJECT_DIR$/ShopGUI.iml" />
     </modules>
   </component>
 </project>

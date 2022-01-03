@@ -1,4 +1,4 @@
-package fantasyshop;
+package modelshop;
 
 
 import java.sql.*;
@@ -141,8 +141,5 @@ public class DbRepository {
         return items;
     }
 
-    public static void main(String[] args){
-        var repo = new DbRepository("jdbc:sqlite:shop.db");
-    }
 
 }

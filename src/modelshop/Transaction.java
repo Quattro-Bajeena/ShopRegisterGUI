@@ -1,4 +1,4 @@
-package fantasyshop;
+package modelshop;
 
 import java.util.ArrayList;
 

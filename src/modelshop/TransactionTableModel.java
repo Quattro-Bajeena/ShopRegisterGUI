@@ -1,4 +1,4 @@
-package fantasyshop;
+package modelshop;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
