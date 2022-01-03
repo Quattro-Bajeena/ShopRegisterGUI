@@ -3,6 +3,8 @@ package fantasyshop;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class ShopManager {
     DbRepository repository = new DbRepository("jdbc:sqlite:shop.db");
@@ -32,7 +34,7 @@ public class ShopManager {
             return;
 
         repository.addItem(newItem);
-        stock = repository.getStock();
+        stock.add(newItem);
     }
 
     public int getCartTotal(){
@@ -48,9 +50,14 @@ public class ShopManager {
     }
 
     public void completeTransaction(){
-        var timestamp = new Timestamp(System.currentTimeMillis());
-        var transaction = new Transaction(Long.toString(Instant.now().toEpochMilli()) , 0,  cart);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        var code = dtf.format(now);
+
+        var transaction = new Transaction(code , 0,  cart);
         transaction.recalculatePrice();
+        repository.addTransaction(transaction);
+        cart.clear();
     }
 
 }

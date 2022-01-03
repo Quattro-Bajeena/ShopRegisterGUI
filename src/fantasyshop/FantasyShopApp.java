@@ -39,15 +39,13 @@ public class FantasyShopApp {
                 refreshCart();
             }
         });
-        refreshCart();
         btnNewStockItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                var newItemWindow = new NewItem();
+                var newItemWindow = new NewItem(manager.stock);
                 newItemWindow.setVisible(true);
                 manager.addNewItem(newItemWindow.newItem);
                 stockTableModel.fireTableDataChanged();
-
             }
         });
         btnTransactions.addActionListener(new ActionListener() {
@@ -56,6 +54,17 @@ public class FantasyShopApp {
                 var transactions = manager.getTransactions();
                 var transactionsPanel = new TransactionsForm(transactions);
                 transactionsPanel.setVisible(true);
+            }
+        });
+        btnCompleteTransaction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(manager.cart.size() == 0){
+                    JOptionPane.showMessageDialog(panelMain, "There has to be at least 1 item in the cart");
+                    return;
+                }
+                manager.completeTransaction();
+                refreshCart();
             }
         });
     }
@@ -74,11 +83,13 @@ public class FantasyShopApp {
 
         cartTableModel = new ItemTableModel(manager.cart);
         tableCart.setModel(cartTableModel);
-        manager.cart.add(new Item("MSZ-010", "ZZ Gundam", 105));
-        manager.cart.add(new Item("MSN-00100", "Hyaku Shiki", 205));
     }
 
     public static void main(String[] args) {
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch(Exception ignored){}
+
         JFrame frame = new JFrame("App");
         frame.setContentPane(new FantasyShopApp().panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

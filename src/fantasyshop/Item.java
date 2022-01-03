@@ -1,7 +1,6 @@
 package fantasyshop;
 
 public class Item {
-    public int id;
     public String code;
     public String name;
     public int price;

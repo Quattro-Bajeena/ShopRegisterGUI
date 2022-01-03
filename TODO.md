@@ -1,0 +1,2 @@
+- new stock price int check
+- new stock code uniqe check

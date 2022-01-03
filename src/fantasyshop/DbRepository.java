@@ -24,11 +24,10 @@ public class DbRepository {
     public void addItem(Item item) {
         try{
             PreparedStatement prep = conn.prepareStatement(
-                    "insert into items values (?, ?, ?, ?);");
-            prep.setNull(1, 0);
-            prep.setString(2, item.code);
-            prep.setString(3, item.name);
-            prep.setInt(4, item.price);
+                    "insert into items values (?, ?, ?);");
+            prep.setString(1, item.code);
+            prep.setString(2, item.name);
+            prep.setInt(3, item.price);
             prep.addBatch();
             prep.executeBatch();
         }
@@ -44,12 +43,10 @@ public class DbRepository {
             Statement stat = conn.createStatement();
             ResultSet rs = stat.executeQuery("select * from items;");
             while (rs.next()) {
-                int id = rs.getInt("id");
                 String code = rs.getString("code");
                 String name = rs.getString("name");
                 int price = rs.getInt("price");
                 var newItem = new Item(code, name, price);
-                newItem.id = id;
                 items.add(newItem);
             }
         }
@@ -84,7 +81,7 @@ public class DbRepository {
                         "INSERT INTO transactionitems VALUES (?, ?, ?);");
                 prepInsertTransactionItem.setNull(1, 0);
                 prepInsertTransactionItem.setInt(2, transactionId);
-                prepInsertTransactionItem.setInt(3, item.id);
+                prepInsertTransactionItem.setString(3, item.code);
                 prepInsertTransactionItem.addBatch();
                 prepInsertTransactionItem.executeBatch();
             }
@@ -122,8 +119,8 @@ public class DbRepository {
         var items = new ArrayList<Item>();
         try {
             PreparedStatement prep = conn.prepareStatement(
-                    "SELECT items.id, items.code, items.name, items.price FROM items\n" +
-                        "JOIN transactionitems ON items.id = transactionitems.itemid\n" +
+                    "SELECT items.code, items.name, items.price FROM items\n" +
+                        "JOIN transactionitems ON items.code = transactionitems.itemcode\n" +
                         "JOIN transactions ON  transactions.id = transactionitems.transactionid\n" +
                         "WHERE transactions.id = ?;");
             prep.setInt(1, transactionId);
@@ -131,12 +128,10 @@ public class DbRepository {
 
             var rs = prep.executeQuery();
             while(rs.next()) {
-                int id = rs.getInt("id");
                 String code = rs.getString("code");
                 String name = rs.getString("name");
                 int price = rs.getInt("price");
                 var item = new Item(code, name, price);
-                item.id = id;
                 items.add(item);
                 //System.out.println(id + "|" + code + "|" + name);
             }

@@ -2,6 +2,7 @@ package fantasyshop;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class NewItem extends JDialog {
     private JPanel contentPane;
@@ -11,9 +12,12 @@ public class NewItem extends JDialog {
     private JTextField textFieldName;
     private JTextField textFieldPrice;
 
+    public ArrayList<Item> stock;
     Item newItem;
 
-    public NewItem() {
+    public NewItem(ArrayList<Item> currentStock) {
+        this.stock = currentStock;
+
         setSize(300, 200);
         setContentPane(contentPane);
         setModal(true);
@@ -51,9 +55,32 @@ public class NewItem extends JDialog {
         // add your code here
         var code = textFieldCode.getText();
         var name = textFieldName.getText();
-        var price = Integer.parseInt(textFieldPrice.getText());
+        var priceStr = textFieldPrice.getText();
+
+        int price;
+        if(priceStr.matches("\\d+")){
+            price = Integer.parseInt(priceStr);
+        }
+        else{
+            JOptionPane.showMessageDialog(contentPane, "Price has to be positive integer");
+            return;
+        }
+
+        boolean codeUnique = true;
+        for(var item : stock){
+            if(item.code.equals(code)){
+                codeUnique = false;
+                break;
+            }
+        }
+        if(codeUnique == false){
+            JOptionPane.showMessageDialog(contentPane, "Item code has to be uniqe");
+            return;
+        }
+
         newItem = new Item(code, name, price);
         dispose();
+
     }
 
     private void onCancel() {
@@ -61,10 +88,4 @@ public class NewItem extends JDialog {
         dispose();
     }
 
-    public static void main(String[] args) {
-        NewItem dialog = new NewItem();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
-    }
 }
