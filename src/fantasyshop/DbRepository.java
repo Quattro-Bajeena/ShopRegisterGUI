@@ -96,7 +96,7 @@ public class DbRepository {
         var transactions = new ArrayList<Transaction>();
         try{
             Statement stat = conn.createStatement();
-            ResultSet rs = stat.executeQuery("select * from transactions;");
+            ResultSet rs = stat.executeQuery("SELECT * FROM transactions;");
             while(rs.next()){
                 var id = rs.getInt("id");
                 var code = rs.getString("code");
@@ -133,7 +133,6 @@ public class DbRepository {
                 int price = rs.getInt("price");
                 var item = new Item(code, name, price);
                 items.add(item);
-                //System.out.println(id + "|" + code + "|" + name);
             }
         }
         catch (SQLException e){
@@ -144,22 +143,6 @@ public class DbRepository {
 
     public static void main(String[] args){
         var repo = new DbRepository("jdbc:sqlite:shop.db");
-        //var transactions = repo.getTransactions();
-//        var items = new ArrayList<Item>();
-//        var item1 = new Item("MSZ-010", "ZZ Gundam", 105);
-//        item1.id = 6;
-//        var item2 = new Item("MSN-00100", "Hyaku Shiki", 205);
-//        item2.id = 7;
-//
-//        items.add(item1);
-//        items.add(item2);
-//
-//        var transaction = new Transaction("trans",0, items);
-//        transaction.recalculatePrice();
-//
-//        repo.addTransaction(transaction);
-
     }
-
 
 }

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class NewItem extends JDialog {
+public class NewItemForm extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -15,7 +15,7 @@ public class NewItem extends JDialog {
     public ArrayList<Item> stock;
     Item newItem;
 
-    public NewItem(ArrayList<Item> currentStock) {
+    public NewItemForm(ArrayList<Item> currentStock) {
         this.stock = currentStock;
 
         setSize(300, 200);

@@ -3,9 +3,8 @@ package fantasyshop;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-public class FantasyShopApp {
+public class ShopApp {
     private JPanel panelMain;
     private JButton btnAddItem;
     private JButton btnCompleteTransaction;
@@ -22,7 +21,7 @@ public class FantasyShopApp {
     ShopManager manager = new ShopManager();
 
 
-    public FantasyShopApp() {
+    public ShopApp() {
 
         createTable();
         btnAddItem.addActionListener(new ActionListener() {
@@ -42,7 +41,7 @@ public class FantasyShopApp {
         btnNewStockItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                var newItemWindow = new NewItem(manager.stock);
+                var newItemWindow = new NewItemForm(manager.stock);
                 newItemWindow.setVisible(true);
                 manager.addNewItem(newItemWindow.newItem);
                 stockTableModel.fireTableDataChanged();
@@ -91,7 +90,7 @@ public class FantasyShopApp {
 //        } catch(Exception ignored){}
 
         JFrame frame = new JFrame("App");
-        frame.setContentPane(new FantasyShopApp().panelMain);
+        frame.setContentPane(new ShopApp().panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>fantasyshop</OriginalElement>
+  <nodes>
+    <node x="669.2857142857143" y="428.0">fantasyshop.Item</node>
+    <node x="916.0" y="428.0">fantasyshop.Transaction</node>
+    <node x="-62.0" y="428.0">fantasyshop.DbRepository</node>
+    <node x="161.0" y="-46.428571428571445">fantasyshop.TransactionsForm</node>
+    <node x="581.4285714285716" y="-46.428571428571445">fantasyshop.TransactionTableModel</node>
+    <node x="947.0" y="-46.428571428571445">fantasyshop.ItemTableModel</node>
+    <node x="-121.0" y="-46.428571428571445">fantasyshop.NewItemForm</node>
+    <node x="-401.0" y="428.0">fantasyshop.ShopManager</node>
+    <node x="-401.0" y="-46.428571428571445">fantasyshop.ShopApp</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic" zoom="0.7" showDependencies="false" x="754.0" y="422.0" />
+  <SelectedNodes>
+    <node>fantasyshop.Item</node>
+    <node>fantasyshop.Transaction</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

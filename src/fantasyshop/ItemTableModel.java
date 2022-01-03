@@ -3,7 +3,7 @@ package fantasyshop;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class ItemTableModel extends AbstractTableModel {
+public class ItemTableModel extends AbstractTableModel{
 
     String[] columnNames = new String[]{"Code", "Name", "Price"};
     ArrayList<Item> items;
