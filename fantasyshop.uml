@@ -3,22 +3,22 @@
   <ID>JAVA</ID>
   <OriginalElement>modelshop</OriginalElement>
   <nodes>
-    <node x="669.2857142857143" y="428.0">modelshop.Item</node>
     <node x="916.0" y="428.0">modelshop.Transaction</node>
-    <node x="-62.0" y="428.0">modelshop.DbRepository</node>
-    <node x="161.0" y="-46.428571428571445">modelshop.TransactionsForm</node>
+    <node x="161.0" y="160.71428571428578">modelshop.TransactionDetailForm</node>
     <node x="581.4285714285716" y="-46.428571428571445">modelshop.TransactionTableModel</node>
-    <node x="947.0" y="-46.428571428571445">modelshop.ItemTableModel</node>
     <node x="-121.0" y="-46.428571428571445">modelshop.NewItemForm</node>
+    <node x="161.0" y="-46.428571428571445">modelshop.TransactionsForm</node>
+    <node x="947.0" y="-46.428571428571445">modelshop.ItemTableModel</node>
     <node x="-401.0" y="428.0">modelshop.ShopManager</node>
+    <node x="669.2857142857143" y="428.0">modelshop.Item</node>
+    <node x="-62.0" y="428.0">modelshop.DbRepository</node>
     <node x="-401.0" y="-46.428571428571445">modelshop.ShopApp</node>
   </nodes>
   <notes />
   <edges />
-  <settings layout="Hierarchic" zoom="0.7" showDependencies="false" x="754.0" y="422.0" />
+  <settings layout="Hierarchic" zoom="0.7" showDependencies="false" x="522.571428571428" y="294.8571428571422" />
   <SelectedNodes>
-    <node>modelshop.Item</node>
-    <node>modelshop.Transaction</node>
+    <node>modelshop.TransactionDetailForm</node>
   </SelectedNodes>
   <Categories>
     <Category>Constructors</Category>
