@@ -21,7 +21,6 @@ public class TransactionsForm extends JDialog{
         getRootPane().setDefaultButton(buttonOk);
 
 
-
         tableTransactions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         transactionTableModel = new TransactionTableModel(transactions);
@@ -29,28 +28,19 @@ public class TransactionsForm extends JDialog{
 
         this.transactions = transactions;
 
-        buttonOk.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        buttonOk.addActionListener(e -> dispose());
+        transactionDetailsButton.addActionListener(e -> transactionDetails());
+    }
 
-        transactionDetailsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int row = tableTransactions.getSelectedRow();
-                if(row == -1)
-                    return;
+    private void transactionDetails(){
+        int row = tableTransactions.getSelectedRow();
+        if(row == -1)
+            return;
 
-                var transaction = transactions.get(row);
+        var transaction = transactions.get(row);
 
-                var transactionDetailForm = new TransactionDetailForm(transaction);
-                transactionDetailForm.setVisible(true);
-
-            }
-        });
-
-
+        var transactionDetailForm = new TransactionDetailForm(transaction);
+        transactionDetailForm.setVisible(true);
     }
 }
 

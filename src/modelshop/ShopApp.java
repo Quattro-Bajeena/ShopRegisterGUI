@@ -1,10 +1,14 @@
 package modelshop;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Comparator;
 
-public class ShopApp {
+public class ShopApp extends JFrame{
     private JPanel panelMain;
     private JButton btnAddItem;
     private JButton btnCompleteTransaction;
@@ -22,50 +26,54 @@ public class ShopApp {
 
 
     public ShopApp() {
-
+        setupFrame();
         createTable();
-        btnAddItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                manager.addItemToCart(tableStock.getSelectedRow());
-                refreshCart();
-            }
-        });
-        btnDeleteProduct.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                manager.removeItemCart(tableCart.getSelectedRow());
-                refreshCart();
-            }
-        });
-        btnNewStockItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var newItemWindow = new NewItemForm(manager.stock);
-                newItemWindow.setVisible(true);
-                manager.addNewItem(newItemWindow.newItem);
-                stockTableModel.fireTableDataChanged();
-            }
-        });
-        btnTransactions.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                var transactions = manager.getTransactions();
-                var transactionsPanel = new TransactionsForm(transactions);
-                transactionsPanel.setVisible(true);
-            }
-        });
-        btnCompleteTransaction.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(manager.cart.size() == 0){
-                    JOptionPane.showMessageDialog(panelMain, "There has to be at least 1 item in the cart");
-                    return;
-                }
-                manager.completeTransaction();
-                refreshCart();
-            }
-        });
+        btnAddItem.addActionListener(e -> addItem());
+        btnDeleteProduct.addActionListener(e -> deleteProduct());
+        btnNewStockItem.addActionListener(e -> newStockItem());
+        btnTransactions.addActionListener(e -> seeTransactions());
+        btnCompleteTransaction.addActionListener(e -> completeTransaction());
+    }
+
+    private void setupFrame(){
+        setContentPane(panelMain);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setMinimumSize(new Dimension(500, 400));
+        pack();
+        setVisible(true);
+
+    }
+
+    private void addItem(){
+        manager.addItemToCart(tableStock.getSelectedRow());
+        refreshCart();
+    }
+
+    private void deleteProduct(){
+        manager.removeItemCart(tableCart.getSelectedRow());
+        refreshCart();
+    }
+
+    private void newStockItem(){
+        var newItemWindow = new NewItemForm(manager.stock);
+        newItemWindow.setVisible(true);
+        manager.addNewItem(newItemWindow.newItem);
+        stockTableModel.fireTableDataChanged();
+    }
+
+    private void seeTransactions(){
+        var transactions = manager.getTransactions();
+        var transactionsPanel = new TransactionsForm(transactions);
+        transactionsPanel.setVisible(true);
+    }
+
+    private void completeTransaction(){
+        if(manager.cart.size() == 0){
+            JOptionPane.showMessageDialog(panelMain, "There has to be at least 1 item in the cart");
+            return;
+        }
+        manager.completeTransaction();
+        refreshCart();
     }
 
     private void refreshCart(){
@@ -84,17 +92,14 @@ public class ShopApp {
         tableCart.setModel(cartTableModel);
     }
 
-    public static void main(String[] args) {
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch(Exception ignored){}
-
-        JFrame frame = new JFrame("App");
-        frame.setContentPane(new ShopApp().panelMain);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//
+//        JFrame frame = new JFrame("App");
+//        frame.setContentPane(new ShopApp().panelMain);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.pack();
+//        frame.setVisible(true);
+//    }
 
 
 

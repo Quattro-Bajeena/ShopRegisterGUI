@@ -27,9 +27,8 @@ public class TransactionDetailForm extends JDialog{
         codeText.setText(transaction.code);
         priceText.setText(Integer.toString(transaction.price));
 
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { dispose(); }
-        });
+        exitButton.addActionListener(e -> dispose());
     }
+
+
 }
